@@ -2,6 +2,7 @@ package kr.co.bturn.member.controller;
 
 import javax.servlet.http.HttpSession;
 
+import kr.co.bturn.member.dao.MemberDAO;
 import kr.co.bturn.member.model.MemberDTO;
 import kr.co.bturn.member.service.MemberService;
 
@@ -17,7 +18,12 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
-	
+
+	public void setMemberService(MemberService memberService) {
+		this.memberService = memberService;
+	}
+
+
 	@RequestMapping("/main.do")
 	public String main() throws Exception {
 		return "/main";
@@ -30,12 +36,11 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/join.do", method=RequestMethod.POST)
-	public ModelAndView join() throws Exception {
+	public ModelAndView join(Model databox, MemberDTO dto) throws Exception {
 		
 		ModelAndView mav = new ModelAndView();
-		
+		memberService.join(databox, dto);
 		mav.setViewName("main");
-		
 		return mav;
 	}
 	
