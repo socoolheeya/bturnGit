@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.bturn.dao.config.memberSql">
 
-	<insert id="insertMember">
+	<insert id="insertMember" parameterType="kr.co.bturn.member.model.MemberDTO">
 		insert into 
 			bt_member
 					(
@@ -27,12 +27,13 @@
 			 		#{birthday},
 			 		sysdate,
 			 		sysdate,
+			 		'ADMIN',
 			 		'01'
 			 	)
 		
 	</insert>
 	
-	<select id="selectMember" parameterType="java.lang.String">
+	<select id="selectMember" parameterType="java.lang.String" resultType="kr.co.bturn.member.model.MemberDTO">
 		select /*memberSql.xml selectMember 2015.09.10 이원희 */
 			* 
 			from 

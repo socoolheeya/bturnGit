@@ -32,7 +32,4 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<!-- service -->
-	<beans:bean id="memberService" class="kr.co.bturn.member.service.MemberServiceImpl"/>
-	
 </beans>

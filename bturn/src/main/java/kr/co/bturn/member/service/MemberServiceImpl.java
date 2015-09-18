@@ -5,19 +5,19 @@ import java.sql.SQLException;
 import kr.co.bturn.member.dao.MemberDAO;
 import kr.co.bturn.member.model.MemberDTO;
 
-import org.apache.commons.logging.Log;
+import org.slf4j.Logger;
 import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
 
 public class MemberServiceImpl implements MemberService {
-
+	
+	private Logger logger;
 	private MemberDAO memberDAO;
-	private Log log;
 
 	public void setMemberDAO(MemberDAO memberDAO) {
 		this.memberDAO = memberDAO;
 	}
-
+	
 	@Override
 	public int join(Model databox, MemberDTO dto) throws SQLException {
 	
@@ -28,7 +28,7 @@ public class MemberServiceImpl implements MemberService {
 			}	
 		} catch(Exception e) {			
 			result = -1;
-			log.error(e.getMessage(), e);
+			logger.error(e.getMessage(), e); 
 		}
 		
 		return result;
@@ -80,6 +80,8 @@ public class MemberServiceImpl implements MemberService {
 		
 		if(dbPassword.equals(password)) {
 			flag = true;
+		} else {
+			flag = false;
 		}
 		
 		return flag;

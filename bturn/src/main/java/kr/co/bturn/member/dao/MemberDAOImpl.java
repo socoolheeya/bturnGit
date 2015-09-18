@@ -11,10 +11,11 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	private SqlSessionTemplate sqlMap;
 	
-	public void setSqlMap(SqlSessionTemplate sqlMap) {
+	public MemberDAOImpl(SqlSessionTemplate sqlMap) {
+		super();
 		this.sqlMap = sqlMap;
 	}
-	
+
 	@Override
 	public int join(Model databox, MemberDTO dto) throws DataAccessException {
 		int result = -1;
