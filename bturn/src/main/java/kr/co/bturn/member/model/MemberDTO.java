@@ -8,18 +8,33 @@ import java.util.Date;
  */
 public class MemberDTO {
 	
-	private String email;
-	private String password;
-	private String name;
-	private String phone;
-	private String address;
-	private String birthday;
-	private Date joinDate;
-	private Date updateDate;
-	private String memberGroup;
-	private String deleteFlag;
+	private String memberNo; //회원 일련번호
+	private String id; //아이디
+	private String password; //비밀번호
+	private String name; //이름(사업자 대표명)
+	private String email; //이메일
+	private String tel; //일반전화
+	private String phone; //핸드폰번호
+	private String address; //주소
+	private String birthday; //생일
+	private Date joinDate; //가입날짜
+	private Date updateDate; //수정날짜
+	private String memberGroup; //ADMIN, NORMAL, COMPANY_SELLER, PRIVATE_SELLER
+	private String deleteFlag; //탈퇴여부
 	
 
+	public String getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -37,6 +52,12 @@ public class MemberDTO {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 	public String getPhone() {
 		return phone;
@@ -81,3 +102,4 @@ public class MemberDTO {
 		this.deleteFlag = deleteFlag;
 	}
 }
+
