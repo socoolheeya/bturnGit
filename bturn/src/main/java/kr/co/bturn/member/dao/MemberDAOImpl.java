@@ -2,13 +2,19 @@ package kr.co.bturn.member.dao;
 
 import kr.co.bturn.member.model.MemberDTO;
 
+import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.dao.DataAccessException;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 
+/**
+ * 
+ * @author LeeWonHee
+ * @since 2015.09.22
+ */
 public class MemberDAOImpl implements MemberDAO {
 	
+	Logger log = Logger.getLogger(this.getClass());
 	private SqlSessionTemplate sqlMap;
 	
 	public MemberDAOImpl(SqlSessionTemplate sqlMap) {
@@ -17,20 +23,19 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public int join(Model databox, MemberDTO dto) throws DataAccessException {
+	public int join(MemberDTO dto) throws DataAccessException {
 		int result = -1;
 		try {
 			result = sqlMap.insert("insertMember", dto);
 		} catch (Exception e) {
-			e.printStackTrace();
-			databox.addAttribute("ERROR_MESSAGE", e.getMessage());
+			log.error(e.getMessage(), e);
 		}
 
 		return result;
 	}
 
 	@Override
-	public MemberDTO getMemberInfo(Model databox, String email) throws DataAccessException {
+	public MemberDTO getMemberInfo(String email) throws DataAccessException {
 
 		MemberDTO dto = null;
 		try {
@@ -40,15 +45,14 @@ public class MemberDAOImpl implements MemberDAO {
 			dto = sqlMap.selectOne("selectMember", email);
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			databox.addAttribute("ERROR_MESSAGE", e.getMessage());
+			log.error(e.getMessage(), e);
 
 		}
 		return dto;
 	}
 
 	@Override
-	public int updateMemberInfo(Model databox, String email) throws DataAccessException {
+	public int updateMemberInfo(String email) throws DataAccessException {
 
 		int result = -1;
 		try {
@@ -57,14 +61,13 @@ public class MemberDAOImpl implements MemberDAO {
 			}
 			result = sqlMap.update("updateMember", email);
 		} catch (Exception e) {
-			e.printStackTrace();
-			databox.addAttribute("ERROR_MESSAGE", e.getMessage());
+			log.error(e.getMessage(), e);
 		}
 		return result;
 	}
 
 	@Override
-	public int deleteMember(Model databox, String email) throws DataAccessException {
+	public int deleteMember(String email) throws DataAccessException {
 
 		int result = -1;
 		try {
@@ -73,8 +76,7 @@ public class MemberDAOImpl implements MemberDAO {
 			}
 			result = sqlMap.update("deleteMember", email);
 		} catch (Exception e) {
-			e.printStackTrace();
-			databox.addAttribute("ERROR_MESSAGE", e.getMessage());
+			log.error(e.getMessage(), e);
 		}
 		return result;
 	}

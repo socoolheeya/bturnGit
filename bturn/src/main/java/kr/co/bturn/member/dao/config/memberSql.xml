@@ -18,7 +18,7 @@
 						mem_birth,
 						join_dt,
 						update_dt,
-						mem_grp,
+						mem_type,
 						del_Flag
 					)
 			 	values
@@ -37,17 +37,20 @@
 			 			<when test="ADMIN">
 			 				'ADMIN',	
 			 			</when>
-			 			<when test="NORMAL">
-			 				'NORMAL',
+			 			<when test="PRIVATE_BUYER">
+			 				'PRIVATE_BUYER',
 			 			</when>
-			 			<when test="COMPANY">
-			 				'COMPANY',
+			 			<when test="BUSINESS_BUYER">
+			 				'BUSINESS_BUYER'
 			 			</when>
-			 			<when test="PRIVATE">
-			 				'PRIVATE',
+			 			<when test="BUSINESS_SEllER">
+			 				'BUSINESS_SELLER',
+			 			</when>
+			 			<when test="PRIVATE_SELLER">
+			 				'PRIVATE_SELLER',
 			 			</when>
 			 		</choose>
-			 		'01'
+			 		'JOIN'
 			 	)
 		
 	</insert>

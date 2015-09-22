@@ -2,7 +2,6 @@ package kr.co.bturn.member.controller;
 
 import javax.servlet.http.HttpSession;
 
-import kr.co.bturn.member.dao.MemberDAO;
 import kr.co.bturn.member.model.MemberDTO;
 import kr.co.bturn.member.service.MemberService;
 
@@ -29,17 +28,22 @@ public class MemberController {
 		return "/main";
 	}
 	
+	@RequestMapping(value="/joinIndex.do")
+	public String joinIndex() throws Exception {
+		return "member/join/joinIndex";
+	}
+	
 	
 	@RequestMapping(value="/join.do", method=RequestMethod.GET)
 	public String joinForm() throws Exception {
-		return "member/join";
+		return "member/join/join";
 	}
 	
 	@RequestMapping(value="/join.do", method=RequestMethod.POST)
-	public ModelAndView join(Model databox, MemberDTO dto) throws Exception {
+	public ModelAndView join(MemberDTO dto) throws Exception {
 		
 		ModelAndView mav = new ModelAndView();
-		memberService.join(databox, dto);
+		memberService.join(dto);
 		mav.setViewName("main");
 		return mav;
 	}
@@ -53,7 +57,7 @@ public class MemberController {
 	public ModelAndView login(Model databox, String email, HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		
-		MemberDTO dto = memberService.login(databox, email);
+		MemberDTO dto = memberService.login(email);
 		if(dto != null && dto.equals("")) {
 			session.setAttribute("email", dto.getEmail());
 			session.setAttribute("name", dto.getName());

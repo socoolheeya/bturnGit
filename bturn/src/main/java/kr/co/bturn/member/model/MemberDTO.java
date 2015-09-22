@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * @author LeeWonHee
- *
+ * @since 2015.09.18
  */
 public class MemberDTO {
 	
@@ -19,7 +19,7 @@ public class MemberDTO {
 	private String birthday; //생일
 	private Date joinDate; //가입날짜
 	private Date updateDate; //수정날짜
-	private String memberGroup; //ADMIN, NORMAL, COMPANY_SELLER, PRIVATE_SELLER
+	private String memberType; //ADMIN, PRIVATE_BUYER, BUSINESS_BUYER, BUSINESS_SELLER, PRIVATE_SELLER
 	private String deleteFlag; //탈퇴여부
 	
 
@@ -89,11 +89,11 @@ public class MemberDTO {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	public String getMemberGroup() {
-		return memberGroup;
+	public String getMemberType() {
+		return memberType;
 	}
-	public void setMemberGroup(String memberGroup) {
-		this.memberGroup = memberGroup;
+	public void setMemberType(String memberType) {
+		this.memberType = memberType;
 	}
 	public String getDeleteFlag() {
 		return deleteFlag;
