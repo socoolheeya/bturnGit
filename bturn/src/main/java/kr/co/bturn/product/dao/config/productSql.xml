@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.bturn.product.dao.config.productSql">
+
+	<insert id="insertProduct" parameterType="kr.co.bturn.product.model.ProductDTO">
+		insert into /* productSql.xml insertProduct 2015.09.20 이원희 */
+		bt_product
+		(
+		prd_no,
+		prd_nm,
+		prd_prc,
+		prd_img,
+		prd_stck,
+		prd_status,
+		prd_desctn,
+		prd_hit_cnt,
+		prd_seller_id,
+		prd_seller_nm,
+		prd_seller_contc,
+		prd_ctgr_nm,
+		prd_rtrn_addr,
+		prd_create_dt
+		)
+		values
+		(
+		prd_no.nextval,
+		<if test="name != null">
+			#{name},
+		</if>
+		<if test="price != 0">
+			#{price},
+		</if>
+		<if test="imageUrl != null">
+			#{imageUrl},
+		</if>
+		<if test="stock != 0">
+			#{stock},
+		</if>
+		<if test="status != null">
+			#{status},
+		</if>
+		<if test="description != null">
+			#{description},
+		</if>
+		<if test="hitCount != 0">
+			#{hitCount},
+		</if>
+		<if test="sellerId != null">
+			#{sellerId},
+		</if>
+		<if test="sellerName != null">
+			#{sellerName},
+		</if>
+		<if test="sellerContact != null">
+			#{sellerContact},
+		</if>
+		<if test="categoryName != null">
+			#{categoryName},
+		</if>
+		<if test="returnAddress != null">
+			#{returnAddress},
+		</if>
+		sysdate
+		)
+	</insert>
+	<select id="selectProduct" parameterType="long">
+		select /*
+		productSql.xml selectProduct 2015.09.20 이원희 */
+		*
+		from bt_product
+		where
+		idx = #{idx}
+	</select>
+	<select id="searchProduct" parameterType="String">
+		select /* productSql.xml searchProduct 2015.09.22 이원희 */
+		*
+		from
+		bt_product
+		<where>
+			<if test="productName != null">
+				prd_nm = #{produdctName}
+			</if>
+			OR
+			<if test="description != null">
+				prd_desctn = #{description}
+			</if>
+		</where>
+
+
+	</select>
+	<update id="updateProduct" parameterType="long">
+		update /* productSql.xml updateProduct 2015.09.22 이원희 */
+		bt_product
+		<set>
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="price != 0">
+				#{price},
+			</if>
+			<if test="imageUrl != null">
+				#{imageUrl},
+			</if>
+			<if test="stock != 0">
+				#{stock},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="description != null">
+				#{description},
+			</if>
+			<if test="hitCount != 0">
+				#{hitCount},
+			</if>
+			<if test="sellerId != null">
+				#{sellerId},
+			</if>
+			<if test="sellerName != null">
+				#{sellerName},
+			</if>
+			<if test="sellerContact != null">
+				#{sellerContact},
+			</if>
+			<if test="categoryName != null">
+				#{categoryName},
+			</if>
+			<if test="returnAddress != null">
+				#{returnAddress},
+			</if>
+		</set>
+		<where>
+			prd_no = #{productNo}	
+		</where>
+	</update>
+
+</mapper>
