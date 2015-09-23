@@ -1,6 +1,8 @@
 package kr.co.bturn.member.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import kr.co.bturn.member.dao.MemberDAO;
 import kr.co.bturn.member.model.MemberDTO;
@@ -35,55 +37,97 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean isLogin(String email) throws SQLException {
-
-		if(isPassword(email)) {
-			
+	public boolean isLogin(String id) throws SQLException {
+		if(isMemberId(id)) {
+			if(isPassword(id)) {
+				
+			}
 		}
 		return false;
 	}
 
 	@Override
-	public MemberDTO login(String email) throws SQLException {
-		
+	public MemberDTO login(String id) throws SQLException {
 		MemberDTO dto = null;
-		
-		if(isPassword(email)) {
-			dto = memberDAO.getMemberInfo(email);
-			
+		try {
+			if(isMemberId(id)) {
+				if(isPassword(id)) {
+					dto = memberDAO.getMemberInfo(id);
+				}
+			}
+		} catch(Exception e) {
+			log.error("로그인 실패", e);
 		}
 		return dto;
 	}
 
 	@Override
-	public String getPassword(String email) throws SQLException {
+	public String getPassword(String id) throws SQLException {
 		
 		String password = null;
 		try {
-			password = memberDAO.getMemberInfo(email).getPassword();
+			password = memberDAO.getMemberInfo(id).getPassword();
 		} catch(Exception e) {
 			log.error(e.getMessage(), e);
 		}
 		
 		return password;
 	}
+	
+	@Override
+	public boolean isMemberId(String id) throws SQLException {
+		boolean flag = false;
+		String msg = null;
+		Map<String, Object> databox = new HashMap<String, Object>();
+		try {
+			if(id == null || id.equals("")) {
+				flag = false;
+				msg = "일치하는 아이디가 없습니다.";
+				databox.put("ERROR_MESSAGE", msg);
+			} else if(!id.equals(memberDAO.getMemberInfo(id))) {
+				flag = false;
+				msg = "아이디 입력이 잘못되었습니다. 다시 입력해주세요";
+				databox.put("ERROR_MESSAGE", msg);
+			} else {
+				flag = true;
+			}
+		} catch(Exception e) {
+			log.error(msg, e);
+		}
+		
+		return flag;
+	}
+
 
 	@Override
-	public boolean isPassword(String email) throws SQLException {
+	public boolean isPassword(String id) throws SQLException {
 		
 		boolean flag = false;
 		
-		String dbPassword = memberDAO.getMemberInfo(email).getPassword();
-		String password = DigestUtils.md5Digest(getPassword(email).getBytes()).toString();
+		String dbPassword = memberDAO.getMemberInfo(id).getPassword();
+		String password = DigestUtils.md5Digest(getPassword(id).getBytes()).toString();
 		
 		if(dbPassword.equals(password)) {
 			flag = true;
 		} else {
 			flag = false;
 		}
-		
 		return flag;
-		
 	}
+
+	@Override
+	public int updateMemberInfo(String id) throws SQLException {
+		int result = 0;
+		try {
+			result = memberDAO.updateMemberInfo(id);
+		} catch(Exception e) {
+			result = -1;
+			log.error("회원 정보 수정 실패", e);
+		}
+		
+		return result;
+	}
+
+
 
 }

@@ -13,11 +13,11 @@ public interface MemberDAO {
 	
 	public int join(MemberDTO dto) throws DataAccessException;
 	
-	public MemberDTO getMemberInfo(String email) throws DataAccessException;
+	public MemberDTO getMemberInfo(String id) throws DataAccessException;
 	
-	public int updateMemberInfo(String email) throws DataAccessException;
+	public int updateMemberInfo(String id) throws DataAccessException;
 	
-	public int deleteMember(String email) throws DataAccessException;
+	public int deleteMember(String id) throws DataAccessException;
 	
 	
 

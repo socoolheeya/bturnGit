@@ -35,14 +35,14 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public MemberDTO getMemberInfo(String email) throws DataAccessException {
+	public MemberDTO getMemberInfo(String id) throws DataAccessException {
 
 		MemberDTO dto = null;
 		try {
-			if(StringUtils.isEmpty(email)) {
+			if(StringUtils.isEmpty(id)) {
 				return dto;
 			}
-			dto = sqlMap.selectOne("selectMember", email);
+			dto = sqlMap.selectOne("selectMember", id);
 
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -52,14 +52,14 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public int updateMemberInfo(String email) throws DataAccessException {
+	public int updateMemberInfo(String id) throws DataAccessException {
 
 		int result = -1;
 		try {
-			if(StringUtils.isEmpty(email)) {
+			if(StringUtils.isEmpty(id)) {
 				return result;
 			}
-			result = sqlMap.update("updateMember", email);
+			result = sqlMap.update("updateMember", id);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
@@ -67,14 +67,14 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public int deleteMember(String email) throws DataAccessException {
+	public int deleteMember(String id) throws DataAccessException {
 
 		int result = -1;
 		try {
-			if(StringUtils.isEmpty(email)) {
+			if(StringUtils.isEmpty(id)) {
 				return result;
 			}
-			result = sqlMap.update("deleteMember", email);
+			result = sqlMap.update("deleteMember", id);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
