@@ -50,7 +50,7 @@
 			 				'PRIVATE_SELLER',
 			 			</when>
 			 		</choose>
-			 		'JOIN'
+			 		'MEMBER'
 			 	)
 		
 	</insert>
@@ -60,26 +60,49 @@
 			* 
 			from 
 				bt_member
-			where email = #{mem_email} 
+			where mem_id = #{id} 
 	</select>
 	
-	<update id="updateMember">
+	<update id="updateMember" parameterType="java.lang.String">
 		update /*memberSql.xml selectMember 2015.09.10 이원희 */
 			bt_member
 		<set>
 			<if test="password != null">
-				password = #{mem_pwd},
+				mem_pwd = #{password},
 			</if>
 			<if test="address != null">
-				address = #{mem_addr},
+				mem_addr = #{address},
 			</if>
 			<if test="phone != null">
-				phone = #{mem_phone},
+				mem_phone = #{phone},
 			</if>
 			<if test="birthday != null">
-				birthday = #{mem_birth}
+				mem_birth = #{birthday}
+			</if>
+			<if test="email != null">
+				mem_email = #{email}
 			</if>
 		</set>
-		where email  = #{email}
+		where mem_id  = #{id}
+	</update>
+	<delete id="deleteMember" parameterType="java.lang.String">
+		delete /*memberSql.xml updateMember 2015.09.23 이원희 */
+			mem_pwd,
+			mem_email,
+			mem_tel,
+			mem_phone,
+			mem_addr,
+			mem_birth
+		from bt_member
+		where mem_id = #{id}
+	</delete>
+	<update id="updateMemberDelteFlag" parameterMap="java.lang.String">
+		update /* memberSql.xml updateMemberDelteFlag 2015.09.23 이원희 */
+			bt_member
+			<set>
+				update_dt = sysdate,
+				del_flag = 'DEL_MEMBER'
+			</set>
+			where mem_id = #{id}
 	</update>
 </mapper>
