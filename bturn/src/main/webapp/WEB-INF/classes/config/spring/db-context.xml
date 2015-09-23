@@ -37,7 +37,6 @@
 	</tx:advice>
 
 	<!-- service -->
-
 	<bean id="memberService" class="kr.co.bturn.member.service.MemberServiceImpl">
 		<property name="memberDAO">
 			<bean id="memberDAO" class="kr.co.bturn.member.dao.MemberDAOImpl">
@@ -48,4 +47,23 @@
 		</property>
 	</bean>
 
+	<bean id="productService" class="kr.co.bturn.product.service.ProductServiceImpl">
+		<property name="productDAO">
+			<bean id="productDAO" class="kr.co.bturn.product.dao.ProductDAOImpl">
+				<constructor-arg>
+					<ref local="sqlSessionTemplate" />
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="householdService" class="kr.co.bturn.household.service.HouseholdServiceImpl">
+		<property name="householdDAO">
+			<bean id="householdDAO" class="kr.co.bturn.household.dao.HouseholdDAOImpl">
+				<constructor-arg>
+					<ref local="sqlSessionTemplate" />
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
 </beans>
