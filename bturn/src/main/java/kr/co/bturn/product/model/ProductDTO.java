@@ -16,6 +16,7 @@ public class ProductDTO {
 	private int stock; //상품 재고
 	private String status; //상품 상태
 	private String description; //상품 설명
+	private String productOption; //상품 옵션
 	private long hitCount; //조회수
 	private String sellerId; //판매자 ID
 	private String sellerName; //판매자 이름
@@ -41,6 +42,12 @@ public class ProductDTO {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	public String getProductOption() {
+		return productOption;
+	}
+	public void setProductOption(String productOption) {
+		this.productOption = productOption;
 	}
 	public String getImageUrl() {
 		return imageUrl;
