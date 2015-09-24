@@ -66,4 +66,25 @@
 			</bean>
 		</property>
 	</bean>
+
+	<bean id="orderService" class="kr.co.bturn.order.service.OrderServiceImpl">
+		<property name="orderDAO">
+			<bean id="orderDAO" class="kr.co.bturn.order.dao.OrderDAOImpl">
+				<constructor-arg>
+					<ref local="sqlSessionTemplate" />
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="cartService" class="kr.co.bturn.cart.service.CartServiceImpl">
+		<property name="cartDAO">
+			<bean id="cartDAO" class="kr.co.bturn.cart.dao.CartDAOImpl">
+				<constructor-arg>
+					<ref local="sqlSessionTemplate" />
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
 </beans>
