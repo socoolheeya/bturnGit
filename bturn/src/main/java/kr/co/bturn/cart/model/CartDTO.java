@@ -16,7 +16,7 @@ public class CartDTO {
 	private String productName; //상품명
 	private int deliveryFee; //배송비
 	private int totalDeliveryFee; //총 배송비
-	private int price; //상품 가격
+	private int productPrice; //상품 가격
 	private int stock; //상품 재고
 	private final int baseDeliveryFee = 2500; //기본 배송료
 	private final int freeDeliveryFee = 30000; //무료 배송 기준
@@ -93,11 +93,11 @@ public class CartDTO {
 	public void setTotalDeliveryFee(int totalDeliveryFee) {
 		this.totalDeliveryFee = totalDeliveryFee;
 	}
-	public int getPrice() {
-		return price;
+	public int getProductPrice() {
+		return productPrice;
 	}
-	public void setPrice(int price) {
-		this.price = price;
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
 	}
 	public int getStock() {
 		return stock;

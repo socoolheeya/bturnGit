@@ -43,28 +43,42 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public int calCartTotalPrice(List<CartDTO> cartList) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		int totalPrice = 0;
+		for(int i = 0; i < cartList.size(); i++) {
+			totalPrice += cartList.get(i).getCartPrice();
+		}
+		return totalPrice;
 	}
 
 	@Override
 	public void deleteCartList(List<CartDTO> cartList) throws Exception {
 		
+		
 	}
 
 	@Override
-	public CartDTO selectCart(int cartNo) throws Exception {
+	public CartDTO selectCart(long cartNo) throws Exception {
 		return cartDAO.selectCart(cartNo);
 	}
 
 	@Override
-	public int updateCart(int cartNo) throws Exception {
-		return cartDAO.updateCart(cartNo);
+	public int updateCart(CartDTO dto) throws Exception {
+		return cartDAO.updateCart(dto);
 	}
 
 	@Override
-	public int deleteCart(int cartNo) throws Exception {
-		return cartDAO.deleteCart(cartNo);
+	public int deleteCart(long cartNo) throws Exception {
+		int result = 0;
+		try {
+			if(cartNo < 0 ) {
+				throw new Exception();
+			} else {
+				result = cartDAO.deleteCart(cartNo);
+			}
+		} catch(Exception e) {
+			log.error("장바구니 상품 삭제 실패", e);
+		}
+		return result;
 	}
 
 

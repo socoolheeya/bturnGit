@@ -14,8 +14,9 @@ public interface CartDAO {
 	
 	public CartDTO selectCart(long cartNo) throws DataAccessException;
 	
-	public int updateCart(long cartNo) throws DataAccessException;
+	public int updateCart(CartDTO dto) throws DataAccessException;
 	
 	public int deleteCart(long cartNo) throws DataAccessException;
+	
 
 }

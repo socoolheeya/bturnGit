@@ -55,7 +55,7 @@ public interface CartService {
 	 * @return
 	 * @throws Exception
 	 */
-	public CartDTO selectCart(int cartNo) throws Exception;
+	public CartDTO selectCart(long cartNo) throws Exception;
 	
 	/**
 	 * 장바구니 상품 옵션 변경
@@ -63,7 +63,7 @@ public interface CartService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateCart(int cartNo) throws Exception;
+	public int updateCart(CartDTO dto) throws Exception;
 	
 	/**
 	 * 장바구니 상품 개별 삭제
@@ -71,5 +71,5 @@ public interface CartService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteCart(int cartNo) throws Exception;
+	public int deleteCart(long cartNo) throws Exception;
 }

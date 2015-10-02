@@ -32,8 +32,8 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public int updateCart(long cartNo) throws DataAccessException {
-		return sqlMap.update("updateCart", cartNo);
+	public int updateCart(CartDTO dto) throws DataAccessException {
+		return sqlMap.update("updateCart", dto);
 	}
 
 	@Override
