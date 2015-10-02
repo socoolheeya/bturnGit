@@ -37,5 +37,17 @@
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
-	</bean>	
+	</bean>
+	
+	<!-- service -->
+	<bean id="memberService" class="kr.co.bturn.member.service.MemberServiceImpl">
+		<property name="memberDAO">
+			<bean id="memberDAO" class="kr.co.bturn.member.dao.MemberDAOImpl">
+				<constructor-arg>
+					<ref bean="sqlSessionTemplate" />
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+		
 </beans>
