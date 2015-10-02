@@ -11,13 +11,13 @@ import org.springframework.dao.DataAccessException;
  */
 public interface MemberDAO {
 	
-	public int join(MemberDTO dto) throws DataAccessException;
+	public int join(String queryId, MemberDTO dto) throws DataAccessException;
 	
-	public MemberDTO getMemberInfo(String id) throws DataAccessException;
+	public MemberDTO getMemberInfo(String queryId, String id) throws DataAccessException;
 	
-	public int updateMemberInfo(String id) throws DataAccessException;
+	public int updateMemberInfo(String queryId, String id) throws DataAccessException;
 	
-	public int deleteMember(String id) throws DataAccessException;
+	public int deleteMember(String queryId, String id) throws DataAccessException;
 	
 	
 

@@ -2,10 +2,10 @@ package kr.co.bturn.member.dao;
 
 import kr.co.bturn.member.model.MemberDTO;
 
-import org.apache.log4j.Logger;
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.dao.DataAccessException;
-import org.springframework.util.StringUtils;
 
 /**
  * 
@@ -14,71 +14,42 @@ import org.springframework.util.StringUtils;
  */
 public class MemberDAOImpl implements MemberDAO {
 	
-	Logger log = Logger.getLogger(this.getClass());
+	protected Log log = LogFactory.getLog(this.getClass());
 	private SqlSessionTemplate sqlMap;
 	
 	public MemberDAOImpl(SqlSessionTemplate sqlMap) {
 		super();
 		this.sqlMap = sqlMap;
 	}
-
-	@Override
-	public int join(MemberDTO dto) throws DataAccessException {
-		int result = -1;
-		try {
-			result = sqlMap.insert("insertMember", dto);
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
+	
+	protected void printQueryId(String queryId) {
+		if(log.isDebugEnabled()) {
+			log.debug("\t QueryId	\t :	"+	queryId);
 		}
-
-		return result;
 	}
 
 	@Override
-	public MemberDTO getMemberInfo(String id) throws DataAccessException {
-
-		MemberDTO dto = null;
-		try {
-			if(StringUtils.isEmpty(id)) {
-				return dto;
-			}
-			dto = sqlMap.selectOne("selectMember", id);
-
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-
-		}
-		return dto;
+	public int join(String queryId, MemberDTO dto) throws DataAccessException {
+		printQueryId(queryId);
+		return sqlMap.insert("insertMember", dto);	
 	}
 
 	@Override
-	public int updateMemberInfo(String id) throws DataAccessException {
-
-		int result = -1;
-		try {
-			if(StringUtils.isEmpty(id)) {
-				return result;
-			}
-			result = sqlMap.update("updateMember", id);
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-		}
-		return result;
+	public MemberDTO getMemberInfo(String queryId, String id) throws DataAccessException {		
+		printQueryId(queryId);
+		return sqlMap.selectOne("selectMember", id);
 	}
 
 	@Override
-	public int deleteMember(String id) throws DataAccessException {
+	public int updateMemberInfo(String queryId, String id) throws DataAccessException {
+		printQueryId(queryId);
+		return sqlMap.update("updateMember", id);
+	}
 
-		int result = -1;
-		try {
-			if(StringUtils.isEmpty(id)) {
-				return result;
-			}
-			result = sqlMap.update("deleteMember", id);
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-		}
-		return result;
+	@Override
+	public int deleteMember(String queryId, String id) throws DataAccessException {
+		printQueryId(queryId);
+		return sqlMap.update("deleteMember", id);	
 	}
 
 }
