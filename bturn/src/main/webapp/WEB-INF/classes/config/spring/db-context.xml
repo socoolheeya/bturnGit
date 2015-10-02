@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
@@ -19,8 +20,7 @@
 	</bean>
 	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation"
-			value="classpath:/kr/co/bturn/config/mybatis/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath*:kr/co/bturn/**/dao/config/*Sql.xml" />
 	</bean>
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
@@ -41,7 +41,7 @@
 		<property name="memberDAO">
 			<bean id="memberDAO" class="kr.co.bturn.member.dao.MemberDAOImpl">
 				<constructor-arg>
-					<ref local="sqlSessionTemplate" />
+					<ref bean="sqlSessionTemplate" />
 				</constructor-arg>
 			</bean>
 		</property>
@@ -51,7 +51,7 @@
 		<property name="productDAO">
 			<bean id="productDAO" class="kr.co.bturn.product.dao.ProductDAOImpl">
 				<constructor-arg>
-					<ref local="sqlSessionTemplate" />
+					<ref bean="sqlSessionTemplate" />
 				</constructor-arg>
 			</bean>
 		</property>
@@ -61,7 +61,7 @@
 		<property name="householdDAO">
 			<bean id="householdDAO" class="kr.co.bturn.household.dao.HouseholdDAOImpl">
 				<constructor-arg>
-					<ref local="sqlSessionTemplate" />
+					<ref bean="sqlSessionTemplate" />
 				</constructor-arg>
 			</bean>
 		</property>
@@ -71,7 +71,7 @@
 		<property name="orderDAO">
 			<bean id="orderDAO" class="kr.co.bturn.order.dao.OrderDAOImpl">
 				<constructor-arg>
-					<ref local="sqlSessionTemplate" />
+					<ref bean="sqlSessionTemplate" />
 				</constructor-arg>
 			</bean>
 		</property>
@@ -81,7 +81,7 @@
 		<property name="cartDAO">
 			<bean id="cartDAO" class="kr.co.bturn.cart.dao.CartDAOImpl">
 				<constructor-arg>
-					<ref local="sqlSessionTemplate" />
+					<ref bean="sqlSessionTemplate" />
 				</constructor-arg>
 			</bean>
 		</property>
