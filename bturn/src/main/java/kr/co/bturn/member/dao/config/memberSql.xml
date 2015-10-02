@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="member.dao.config.memberSql">
-	<insert id="insertMember" parameterType="">
-		insert into /* memberSql.xml insertMember 2015.09.20 이원희 */
+<mapper namespace="memberSql">
+	<insert id="insertMember" parameterType="kr.co.bturn.member.model.MemberDTO">
+		insert into /* memberSql.xml insertMember 2015.10.02 이원희 */
 			bt_member
 					(
 						mem_no,
@@ -17,12 +17,12 @@
 						mem_birth,
 						join_dt,
 						update_dt,
-						mem_type,
-						del_Flag
+						mem_grp,
+						del_flag
 					)
 			 	values
 			 	(
-			 		bt_member_seq.nextval,
+			 		bt_member_mem_no.nextval,
 			 		#{id},
 			 		#{password},
 			 		<if test="email != null">
@@ -42,29 +42,15 @@
 			 		</if>
 			 		sysdate,
 			 		sysdate,
-			 		<choose>
-			 			<when test="ADMIN">
-			 				'ADMIN',	
-			 			</when>
-			 			<when test="PRIVATE_BUYER">
-			 				'PRIVATE_BUYER',
-			 			</when>
-			 			<when test="BUSINESS_BUYER">
-			 				'BUSINESS_BUYER'
-			 			</when>
-			 			<when test="BUSINESS_SEllER">
-			 				'BUSINESS_SELLER',
-			 			</when>
-			 			<when test="PRIVATE_SELLER">
-			 				'PRIVATE_SELLER',
-			 			</when>
-			 		</choose>
+			 		<if test="memberType != null">
+			 			#{memberType},
+			 		</if>
 			 		'MEMBER'
 			 	)		
 	</insert>
 	
-	<select id="selectMember" parameterType="String">
-		select /* memberSql.xml selectMember 2015.09.10 이원희 */
+	<select id="selectMember" parameterType="String" resultType="kr.co.bturn.member.model.MemberDTO">
+		select /* memberSql.xml selectMember 2015.10.02 이원희 */
 			* 
 			from bt_member
 			where mem_id = #{id}
@@ -103,7 +89,7 @@
 		from bt_member
 		where mem_id = #{id}
 	</delete>
-	<update id="updateMemberDelteFlag" parameterMap="String">
+	<update id="updateMemberDelteFlag" parameterType="String">
 		update /* memberSql.xml updateMemberDelteFlag 2015.09.23 이원희 */
 			bt_member
 			<set>

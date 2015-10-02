@@ -39,11 +39,18 @@ public class MemberController extends MultiActionController {
 	}
 
 	@RequestMapping(value = "/join.do", method = RequestMethod.POST)
-	public ModelAndView join(String queryId, @RequestParam("dto")MemberDTO dto) {
+	public ModelAndView join(String queryId, MemberDTO dto) {
 		ModelAndView mav = new ModelAndView();
-
+		String msg = "";
 		try {
-			memberService.join(queryId, dto);
+			int result = memberService.join(queryId, dto);
+			if(result > 0) {
+				msg = "로그인 성공";
+				mav.addObject("msg", msg);
+			} else {
+				msg = "로그인 실패";
+				mav.addObject("msg", msg);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

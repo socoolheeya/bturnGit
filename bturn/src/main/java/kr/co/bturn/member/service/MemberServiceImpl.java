@@ -2,6 +2,8 @@ package kr.co.bturn.member.service;
 
 import java.sql.SQLException;
 
+import javax.annotation.Resource;
+
 import kr.co.bturn.member.dao.MemberDAO;
 import kr.co.bturn.member.model.MemberDTO;
 import kr.co.bturn.util.constants.Login;
@@ -14,12 +16,14 @@ import org.springframework.util.StringUtils;
 public class MemberServiceImpl implements MemberService {
 
 	private Logger log = Logger.getLogger(this.getClass());
+	
+	@Resource(name="memberDAO")
 	private MemberDAO memberDAO;
-
+	
 	public void setMemberDAO(MemberDAO memberDAO) {
 		this.memberDAO = memberDAO;
 	}
- 
+
 	@Override
 	public int join(String queryId, MemberDTO dto) throws Exception {
 
@@ -28,6 +32,7 @@ public class MemberServiceImpl implements MemberService {
 			if (dto != null || !"".equals(dto)) {
 				String password = DigestUtils.md5Digest(dto.getPassword().getBytes()).toString();
 				dto.setPassword(password);
+				dto.setMemberType("ADMIN");
 				result = memberDAO.join(queryId, dto);
 			}
 		} catch (Exception e) {

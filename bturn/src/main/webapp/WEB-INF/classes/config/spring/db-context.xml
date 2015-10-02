@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
@@ -20,7 +19,8 @@
 	</bean>
 	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath*:kr/co/bturn/**/dao/config/*Sql.xml" />
+		<property name="configLocation"
+			value="classpath:/kr/co/bturn/config/mybatis/mybatis-config.xml" />
 	</bean>
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
@@ -37,14 +37,12 @@
 	</tx:advice>
 
 	<!-- service -->
-	<bean id="memberService" class="kr.co.bturn.member.service.MemberServiceImpl">
-		<property name="memberDAO">
-			<bean id="memberDAO" class="kr.co.bturn.member.dao.MemberDAOImpl">
-				<constructor-arg>
-					<ref bean="sqlSessionTemplate" />
-				</constructor-arg>
-			</bean>
-		</property>
+
+
+	<bean id="memberDAO" class="kr.co.bturn.member.dao.MemberDAOImpl">
+		<constructor-arg>
+			<ref bean="sqlSessionTemplate" />
+		</constructor-arg>
 	</bean>
 
 	<bean id="productService" class="kr.co.bturn.product.service.ProductServiceImpl">
