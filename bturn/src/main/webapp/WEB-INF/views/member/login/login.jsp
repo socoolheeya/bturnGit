@@ -22,7 +22,7 @@
 				<h1>Bturn 로그인</h1>
 				<form action="/bturn/login.do" method="post">
 					<div class="row">
-						<input class="form-control" type="text" name="email" placeholder="ID">
+						<input class="form-control" type="text" name="id" placeholder="ID">
 					</div>
 					<div class="row">
 						<input class="form-control" type="password" name="password" placeholder="PASSWORD">

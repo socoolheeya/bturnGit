@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>회원가입 페이지</title>
+<title>::B Turn 회원가입::</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
