@@ -65,6 +65,9 @@
 						</a>
 					</div>
 				</div>
+				<div class="row">
+					<jsp:include page="../product/productList.jsp"/>
+				</div>
 			</div>
 			<div class="col-sm-2"></div>
 		</div>
