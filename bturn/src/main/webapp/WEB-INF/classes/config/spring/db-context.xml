@@ -22,37 +22,42 @@
 		<property name="configLocation"
 			value="classpath:/kr/co/bturn/config/mybatis/mybatis-config.xml" />
 	</bean>
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
-		destroy-method="clearCache">
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
 	</bean>
 
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="get*" read-only="true" />
-			<tx:method name="find*" read-only="true" />
-			<tx:method name="view*" read-only="true" />
-			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="select*" read-only="true" />
+			<tx:method name="update*" read-only="true" />
+			<tx:method name="delete*" propagation="REQUIRED" />
 			<tx:method name="*" propagation="REQUIRED" />
 		</tx:attributes>
 	</tx:advice>
 
-
-	<!-- service -->
+	<!-- =================================================== -->
+	<!-- 					service							 -->
+	<!-- =================================================== -->
+	
+	<!-- member -->
 	<bean id="memberDAO" class="kr.co.bturn.member.dao.MemberDAOImpl">
 		<constructor-arg>
 			<ref bean="sqlSessionTemplate" />
 		</constructor-arg>
 	</bean>
+	<bean id="memberService" class="kr.co.bturn.member.service.MemberServiceImpl">
+		<property name="memberDAO" ref="memberDAO" />
+	</bean>
 	
+	<!-- product -->
+	<bean id="productDAO" class="kr.co.bturn.product.dao.ProductDAOImpl">
+		<constructor-arg>
+			<ref bean="sqlSessionTemplate" />
+		</constructor-arg>
+	</bean>
 	<bean id="productService" class="kr.co.bturn.product.service.ProductServiceImpl">
-		<property name="productDAO">
-			<bean id="productDAO" class="kr.co.bturn.product.dao.ProductDAOImpl">
-				<constructor-arg>
-					<ref bean="sqlSessionTemplate" />
-				</constructor-arg>
-			</bean>
-		</property>
+		<property name="productDAO" ref="productDAO" />
 	</bean>
 
 	<bean id="householdService" class="kr.co.bturn.household.service.HouseholdServiceImpl">
