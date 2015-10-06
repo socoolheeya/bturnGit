@@ -5,27 +5,28 @@
 <mapper namespace="kr.co.bturn.product.dao.config.productSql">
 
 	<insert id="insertProduct" parameterType="kr.co.bturn.product.model.ProductDTO">
-		insert into /* productSql.xml insertProduct 2015.09.20 이원희 */
+		insert into /* productSql.xml insertProduct 2015.10.06 이원희 */
 		bt_product
 		(
-		prd_no,
-		prd_nm,
-		prd_prc,
-		prd_img,
-		prd_stck,
-		prd_status,
-		prd_desctn,
-		prd_hit_cnt,
-		prd_seller_id,
-		prd_seller_nm,
-		prd_seller_contc,
-		prd_ctgr_nm,
-		prd_rtrn_addr,
-		prd_create_dt
+			prd_no,
+			prd_nm,
+			prd_prc,
+			prd_img,
+			prd_stck,
+			prd_stus,
+			prd_desctn,
+			prd_optn,
+			prd_hit_cnt,
+			prd_seller_id,
+			prd_seller_nm,
+			prd_seller_contc,
+			prd_ctgr_nm,
+			prd_rtrn_addr,
+			prd_create_dt
 		)
 		values
 		(
-		prd_no.nextval,
+			prd_no.nextval,
 		<if test="name != null">
 			#{name},
 		</if>
@@ -43,6 +44,9 @@
 		</if>
 		<if test="description != null">
 			#{description},
+		</if>
+		<if test="productOption != null">
+			#{productOption},
 		</if>
 		<if test="hitCount != 0">
 			#{hitCount},
@@ -65,19 +69,25 @@
 		sysdate
 		)
 	</insert>
-	<select id="selectProduct" parameterType="long">
-		select /*
-		productSql.xml selectProduct 2015.09.20 이원희 */
-		*
-		from bt_product
-		where
-		idx = #{idx}
+	
+	<select id="selectProduct" parameterType="long" resultType="kr.co.bturn.product.model.ProductDTO">
+		select /* productSql.xml selectProduct 2015.09.20 이원희 */
+			*
+			from bt_product
+			where
+			idx = #{idx}
 	</select>
-	<select id="searchProduct" parameterType="String">
+	
+	<select id="selectProductList" resultType="List">
+		select /* productSql.xml selectProductList 2015.10.06 이원희 */
+			*
+			from bt_product
+	</select>
+	
+	<select id="searchProduct" parameterType="String" resultType="kr.co.bturn.product.model.ProductDTO">
 		select /* productSql.xml searchProduct 2015.09.22 이원희 */
 		*
-		from
-		bt_product
+		from bt_product
 		<where>
 			<if test="productName != null">
 				prd_nm = #{produdctName}
@@ -87,11 +97,10 @@
 				prd_desctn = #{description}
 			</if>
 		</where>
-
-
 	</select>
+	
 	<update id="updateProduct" parameterType="long">
-		update /* productSql.xml updateProduct 2015.09.22 이원희 */
+		update /* productSql.xml updateProduct 2015.10.06 이원희 */
 		bt_product
 		<set>
 			<if test="name != null">
@@ -111,6 +120,9 @@
 			</if>
 			<if test="description != null">
 				#{description},
+			</if>
+			<if test="productOption != null">
+				#{productOption},
 			</if>
 			<if test="hitCount != 0">
 				#{hitCount},

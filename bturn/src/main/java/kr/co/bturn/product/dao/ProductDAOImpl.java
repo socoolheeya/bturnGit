@@ -4,8 +4,9 @@ import java.util.List;
 
 import kr.co.bturn.product.model.ProductDTO;
 
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 
 /**
@@ -15,7 +16,8 @@ import org.springframework.dao.DataAccessException;
  */
 public class ProductDAOImpl implements ProductDAO {
 	
-	Logger log = Logger.getLogger(this.getClass());
+	Log log = LogFactory.getLog(this.getClass());
+	
 	private SqlSessionTemplate sqlMap;
 	
 	public ProductDAOImpl(SqlSessionTemplate sqlMap) {
@@ -52,6 +54,18 @@ public class ProductDAOImpl implements ProductDAO {
 		
 		return dto;
 	}
+	
+	@Override
+	public List<ProductDTO> selectProductList() throws DataAccessException {
+		return sqlMap.selectList("selectProductList");
+	}
+	
+
+	@Override
+	public List<ProductDTO> searchProduct(String keyword) throws DataAccessException {
+		return sqlMap.selectList("searchProductList", keyword);
+	}
+
 
 	@Override
 	public int updateProduct(long index) throws DataAccessException {
@@ -60,21 +74,9 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public int deleteProduct(long index) throws DataAccessException {
-		
 		return sqlMap.delete("deleteProduct", index);
 	}
 
-	@Override
-	public List<ProductDTO> searchProduct(String keyword) throws DataAccessException {
-		sqlMap.selectList("searchProductList", keyword);
-		return null;
-	}
 
-	@Override
-	public List<ProductDTO> selectProductList(ProductDTO dto)
-			throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

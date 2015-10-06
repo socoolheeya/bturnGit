@@ -18,6 +18,8 @@ public interface ProductDAO {
 	 * @param dto
 	 * @return
 	 * @throws DataAccessException
+	 * @author LeeWonHee
+	 * @since 2015.09.22
 	 */
 	public List<ProductDTO> searchProduct(String keyword) throws DataAccessException;
 	
@@ -26,6 +28,8 @@ public interface ProductDAO {
 	 * @param dto
 	 * @return
 	 * @throws DataAccessException
+	 * @author LeeWonHee
+	 * @since 2015.09.22
 	 */
 	public int insertProduct(ProductDTO dto) throws DataAccessException;
 	
@@ -34,6 +38,8 @@ public interface ProductDAO {
 	 * @param index
 	 * @return
 	 * @throws DataAccessException
+	 * @author LeeWonHee
+	 * @since 2015.09.22
 	 */
 	public ProductDTO selectProduct(long index) throws DataAccessException;
 	
@@ -42,14 +48,18 @@ public interface ProductDAO {
 	 * @param dto
 	 * @return
 	 * @throws DataAccessException
+	 * @author LeeWonHee
+	 * @since 2015.10.05
 	 */
-	public List<ProductDTO> selectProductList(ProductDTO dto) throws DataAccessException;
+	public List<ProductDTO> selectProductList() throws DataAccessException;
 	
 	/**
 	 * 상품 정보 수정
 	 * @param index
 	 * @return
 	 * @throws DataAccessException
+	 * @author LeeWonHee
+	 * @since 2015.09.22
 	 */
 	public int updateProduct(long index) throws DataAccessException;
 	
@@ -58,6 +68,8 @@ public interface ProductDAO {
 	 * @param index
 	 * @return
 	 * @throws DataAccessException
+	 * @author LeeWonHee
+	 * @since 2015.09.22
 	 */
 	public int deleteProduct(long index) throws DataAccessException;
 

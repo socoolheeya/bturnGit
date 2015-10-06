@@ -14,7 +14,7 @@ public class ProductDTO {
 	private int price; //상품 가격
 	private String imageUrl; //상품 이미지
 	private int stock; //상품 재고
-	private String status; //상품 상태
+	private String status; //상품 상태 s
 	private String description; //상품 설명
 	private String productOption; //상품 옵션
 	private long hitCount; //조회수
