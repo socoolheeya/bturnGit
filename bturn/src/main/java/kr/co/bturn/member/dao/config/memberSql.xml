@@ -5,60 +5,70 @@
 <mapper namespace="memberSql">
 	<insert id="insertMember" parameterType="kr.co.bturn.member.model.MemberDTO">
 		insert into /* memberSql.xml insertMember 2015.10.02 이원희 */
-			bt_member
-					(
-						mem_no,
-						mem_id,
-						mem_pwd,
-						mem_email,
-						mem_tel,
-						mem_phone,
-						mem_addr,
-						mem_birth,
-						join_dt,
-						update_dt,
-						mem_grp,
-						del_flag
-					)
-			 	values
-			 	(
-			 		bt_member_mem_no.nextval,
-			 		#{id},
-			 		#{password},
-			 		<if test="email != null">
-			 			#{email},
-			 		</if>
-			 		<if test="tel != null">
-			 			#{tel},
-			 		</if>
-			 		<if test="phone != null">
-			 			#{phone},
-			 		</if>
-			 		<if test="address != null">
-			 			#{address},
-			 		</if>
-			 		<if test="birthday != null">
-			 			#{birthday},
-			 		</if>
-			 		sysdate,
-			 		sysdate,
-			 		<if test="memberType != null">
-			 			#{memberType},
-			 		</if>
-			 		'MEMBER'
-			 	)		
+		bt_member
+		(
+		mem_no,
+		mem_id,
+		mem_pwd,
+		mem_email,
+		mem_tel,
+		mem_phone,
+		mem_addr,
+		mem_birth,
+		join_dt,
+		update_dt,
+		mem_grp,
+		del_flag
+		)
+		values
+		(
+		bt_member_mem_no.nextval,
+		#{id},
+		#{password},
+		<if test="email != null">
+			#{email},
+		</if>
+		<if test="tel != null">
+			#{tel},
+		</if>
+		<if test="phone != null">
+			#{phone},
+		</if>
+		<if test="address != null">
+			#{address},
+		</if>
+		<if test="birthday != null">
+			#{birthday},
+		</if>
+		sysdate,
+		sysdate,
+		<if test="memberType != null">
+			#{memberType},
+		</if>
+		'MEMBER'
+		)
 	</insert>
-	
-	<select id="selectMember" parameterType="String" resultType="kr.co.bturn.member.model.MemberDTO">
+	<resultMap type="kr.co.bturn.member.model.MemberDTO" id="selectMemberMap">
+		<result column="MEM_NO" property="memberNo"/>
+		<result column="MEM_ID" property="id"/>
+		<result column="MEM_PWD" property="password"/>
+		<result column="MEM_NM" property="name"/>
+		<result column="MEM_EMAIL" property="email"/>
+	</resultMap>
+	<select id="selectMember" parameterType="String" resultType="kr.co.bturn.member.model.MemberDTO" resultMap="selectMemberMap">
 		select /* memberSql.xml selectMember 2015.10.02 이원희 */
-			* 
-			from bt_member
-			where mem_id = #{id}
+			MEM_NO,
+			MEM_ID,
+			MEM_PWD,
+			MEM_NM,
+			MEM_EMAIL
+		from bt_member
+		where MEM_ID = #{id}
 	</select>
-	
+
 	<update id="updateMember" parameterType="String">
 		update /*memberSql.xml updateMember 2015.09.10 이원희 */
-			bt_member
+		bt_member
 		<set>
 			<if test="password != null">
 				mem_pwd = #{password},
@@ -76,26 +86,27 @@
 				mem_email = #{email}
 			</if>
 		</set>
-		where mem_id  = #{id}
+		where mem_id = #{id}
 	</update>
 	<delete id="deleteMember" parameterType="String">
-		delete /*memberSql.xml deleteMember 2015.09.23 이원희 */
-			mem_pwd,
-			mem_email,
-			mem_tel,
-			mem_phone,
-			mem_addr,
-			mem_birth
+		delete /*memberSql.xml
+		deleteMember 2015.09.23 이원희 */
+		mem_pwd,
+		mem_email,
+		mem_tel,
+		mem_phone,
+		mem_addr,
+		mem_birth
 		from bt_member
 		where mem_id = #{id}
 	</delete>
 	<update id="updateMemberDelteFlag" parameterType="String">
 		update /* memberSql.xml updateMemberDelteFlag 2015.09.23 이원희 */
-			bt_member
-			<set>
-				update_dt = sysdate,
-				del_flag = 'DEL_MEMBER'
-			</set>
-			where mem_id = #{id}
+		bt_member
+		<set>
+			update_dt = sysdate,
+			del_flag = 'DEL_MEMBER'
+		</set>
+		where mem_id = #{id}
 	</update>
 </mapper>
