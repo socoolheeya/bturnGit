@@ -4,6 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<mappers>
+		<!-- 2015.09.15 이원희 // 회원관리 -->
 		<mapper resource="kr/co/bturn/member/dao/config/memberSql.xml"/>
+		
+		<!-- 2015.10.06 이원희 // 상품관리 -->
+		<mapper resource="kr/co/bturn/product/dao/config/productSql.xml"/>
+		
+		<!-- 2015.10.07 이원희 // 주문관리 -->
+		<mapper resource="kr/co/bturn/order/dao/config/orderSql.xml"/>
 	</mappers>
 </configuration>
