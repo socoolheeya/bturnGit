@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="orderSql">
+	<insert id="insertOrder" parameterType="kr.co.bturn.order.model.OrderDTO">
+		insert into /* orderSql.xml selectOrder 2015.10.06 이원희 */
+			bt_order
+			(
+				order_no,
+				buyer_no,
+				order_stus,
+				order_dt,
+				buyer,
+				cnt,
+				stck,
+				prc,
+				seller_no,
+				prd_no,
+				img_url,
+				prd_nm,
+				seller_id,
+				dlvry_fee,
+				total_dlvry_fee,
+				total_prc.
+			)
+			values
+			(
+				bt_order_no.nextval,
+				#{buyerNo},
+				#{orderStatus},
+				sysdate,
+				<if test="buyer != null">
+					#{buyer},
+				</if>
+				<if test="count > 0">
+					#{count},
+				</if>
+				<if test="stock > 0">
+					#{stock},
+				</if>
+				<if test="price > 0">
+					#{price},
+				</if>
+				<if test="sellerNo > 0">
+					#{sellerNo},
+				</if>
+				<if test="productNo > 0">
+					#{productNo},
+				</if>
+				<if test="image != null">
+					#{image},
+				</if>
+				<if test="productName != null">
+					#{productName},
+				</if>
+				<if test="sellerId != null">
+					#{sellerId},
+				</if>
+				<if test="deliveryFee > 0">
+					#{deliveryFee},
+				</if>
+				<if test="totalDeliveryFee > 0">
+					#{totalDeliveryFee},
+				</if>
+				<if test="totalPrice > 0">
+					#{totalPrice},
+				</if>
+				<if test="accountNumber > 0">
+					#{accountNumber}
+				</if>
+			)
+	</insert>
+	
+	<select id="selectOrder" resultType="kr.co.bturn.order.model.OrderDTO">
+		select /* orderSql.xml selectOrder 2015.10.06 이원희 */
+			*
+			from bt_order
+	</select>
+	
+	<select id="selectOrderDuringThreeMonth" resultType="kr.co.bturn.order.model.OrderDTO">
+		select /* orderSql.xml selectOrder 2015.10.06 이원희 */
+			*
+			from bt_order
+			where orderDt between (sysdate - 62) and sysdate
+	</select>
+</mapper>
