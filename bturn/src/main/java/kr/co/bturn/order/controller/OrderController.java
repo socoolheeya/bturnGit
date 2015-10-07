@@ -9,7 +9,8 @@ import kr.co.bturn.member.service.MemberService;
 import kr.co.bturn.order.model.OrderDTO;
 import kr.co.bturn.order.service.OrderService;
 
-import org.apache.log4j.Logger;
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class OrderController {
 	
-	Logger log = Logger.getLogger(this.getClass());
+	Log log = LogFactory.getLog(this.getClass());
 	@Autowired
 	private OrderService orderService;
 	@Resource(name="memberService")

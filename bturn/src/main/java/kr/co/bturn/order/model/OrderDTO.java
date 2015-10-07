@@ -13,7 +13,7 @@ public class OrderDTO {
 	private int stock; //상품 재고
 	private int price; //주문 가격
 	private long sellerNo; //판매자 회원번호
-	private int productNo; //주문 상품 번호
+	private long productNo; //주문 상품 번호
 	private String image; //주문 상품 이미지
 	private String productName; //상품명
 	private String sellerId; // 판매자 ID
@@ -76,10 +76,10 @@ public class OrderDTO {
 	public void setSellerNo(long sellerNo) {
 		this.sellerNo = sellerNo;
 	}
-	public int getProductNo() {
+	public long getProductNo() {
 		return productNo;
 	}
-	public void setProductNo(int productNo) {
+	public void setProductNo(long productNo) {
 		this.productNo = productNo;
 	}
 	public String getImage() {

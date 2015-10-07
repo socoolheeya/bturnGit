@@ -37,6 +37,15 @@ public interface OrderDAO {
 	public OrderDTO selectOrder(long orderNo) throws DataAccessException;
 	
 	/**
+	 * 최근 3달 간 주문 내역
+	 * @return
+	 * @throws DataAccessException
+	 * @author LeeWonHee
+	 * @since 2015.10.06
+	 */
+	public List<OrderDTO> selectOrderListDuringThreeMonth() throws DataAccessException;
+	
+	/**
 	 * 주문 수정
 	 * @param orderNo
 	 * @return

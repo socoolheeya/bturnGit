@@ -30,6 +30,11 @@ public class OrderDAOImpl implements OrderDAO {
 	public OrderDTO selectOrder(long orderNo) throws DataAccessException {
 		return sqlMap.selectOne("selectOrder", orderNo);
 	}
+	
+	@Override
+	public List<OrderDTO> selectOrderListDuringThreeMonth()	throws DataAccessException {
+		return sqlMap.selectList("selecOrderListDuringThreeMonth");
+	}
 
 	@Override
 	public int updateOrder(long orderNo) throws DataAccessException {
@@ -40,5 +45,7 @@ public class OrderDAOImpl implements OrderDAO {
 	public int deleteOrder(long orderNo) throws DataAccessException {
 		return sqlMap.delete("deleteOrder", orderNo);
 	}
+
+
 
 }

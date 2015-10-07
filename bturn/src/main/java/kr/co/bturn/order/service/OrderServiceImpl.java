@@ -5,11 +5,8 @@ import java.util.List;
 import kr.co.bturn.order.dao.OrderDAO;
 import kr.co.bturn.order.model.OrderDTO;
 
-import org.apache.log4j.Logger;
-
 public class OrderServiceImpl implements OrderService {
 	
-	private Logger log = Logger.getLogger(this.getClass());
 	private OrderDAO orderDAO;
 
 	public void setOrderDAO(OrderDAO orderDAO) {
@@ -17,9 +14,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public int calOrder() throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int calOrder(int price, List<OrderDTO> orderList) throws Exception {
+		int totalPrice = calTotalPrice(orderList);
+		int deliveryFee = calDeliveryFee(price);
+		
+		return totalPrice + deliveryFee;
 	}
 
 	@Override
@@ -42,14 +41,22 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<OrderDTO> selectOrderList() throws Exception {
-		
 		return orderDAO.selectOrderList();
+	}
+	
+
+	@Override
+	public List<OrderDTO> selectOrderListDuringThreeMonth() throws Exception {
+		return orderDAO.selectOrderListDuringThreeMonth();
+	}
+	
+	@Override
+	public int updateOrder(long orderNo) throws Exception {
+		return orderDAO.updateOrder(orderNo);
 	}
 
 	@Override
 	public int deleteOrder(long orderNo) throws Exception {
-		
 		return orderDAO.deleteOrder(orderNo);
 	}
-
 }
