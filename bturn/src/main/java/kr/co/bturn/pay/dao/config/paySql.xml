@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.bturn.pay.dao.config.paySql">
+	<!-- insertPay 2015.10.08 이원희 -->
+	<insert id="insertPay" parameterType="kr.co.bturn.pay.model.PayDTO">
+		insert into /* paySql.xml insertPay 2015.10.08 이원희 */
+			bt_pay
+			(
+				pay_no,
+				order_no,
+				mem_no,
+				pay_mny,
+				acct_nmbr,
+				create_dt,
+				pay_status
+			)
+			values
+			(
+				bt_pay_no.nextval,
+				<if test="orderNo > 0 and orderNo != null">
+					#{orderNo},
+				</if>
+				<if test="">
+					#{memberNo},
+				</if>
+				<if test="money > 0 and money != null">
+					#{money},
+				</if>
+				<if test="accountNumber != null">
+					#{accountNumber},
+				</if>
+					sysdate,
+				<if test="payStatus > 0 and payStatus != null">
+					#{payStatus},
+				</if>
+			)
+	</insert>
+	
+	<!-- selectPayList 2015.10.08 이원희 -->
+	<select id="selectPayList" resultType="List">
+		select /* paySql.xml selectPayList 2015.10.08 이원희 */
+			<if test="payNo != null">
+				pay_no,
+			</if>
+			<if test="orderNo != null">
+				order_no,
+			</if>
+			<if test="memberNo != null">
+				mem_no,
+			</if>
+			<if test="money != null">
+				mny,
+			</if>
+			<if test="accountNumber != null">
+				acct_nmbr,
+			</if>
+			<if test="createDate != null">
+				create_dt,
+			</if>
+			<if test="payStatus != null">
+				pay_status
+			</if>
+			from bt_pay
+			where pay_status = '01'
+	</select>
+	
+	<select id="selectPaidList" resultType="List">
+		select /* paySql.xml selectPayList 2015.10.08 이원희 */
+			<if test="payNo != null">
+				pay_no,
+			</if>
+			<if test="orderNo != null">
+				order_no,
+			</if>
+			<if test="memberNo != null">
+				mem_no,
+			</if>
+			<if test="money != null">
+				pay_mny,
+			</if>
+			<if test="accountNumber != null">
+				acct_nmbr,
+			</if>
+			<if test="createDate != null">
+				create_dt,
+			</if>
+			<if test="payStatus != null">
+				pay_status
+			</if>
+			from bt_pay
+			where pay_status = #{payStatus}
+	</select>
+	
+	<!-- 2015.10.08 이원희 -->
+	<update id="updatePay" parameterType="kr.co.bturn.pay.model.PayDTO">
+		update /* paySql.xml updatePay 2015.10.08 이원희 */
+			bt_pay
+			<trim prefix="SET" suffixOverrides=",">
+				<if test="payStatus != null">
+					pay_status = #{payStatus}
+				</if>
+			</trim>
+			<where>
+				<if test="payNo != null">
+					pay_no = #{payNo}
+				</if>
+			</where>
+	</update>
+</mapper>
