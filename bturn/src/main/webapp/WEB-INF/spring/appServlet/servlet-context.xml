@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans
-	xmlns="http://www.springframework.org/schema/beans" 
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
@@ -14,16 +11,19 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
 
-	
-	<context:component-scan base-package="kr.co.bturn" use-default-filters="false">
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+
+	<context:component-scan base-package="kr.co.bturn"
+		use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	
+
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
-			<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
-				<property name="supportedMediaTypes" value = "text/plain;charset=UTF-8" />
+			<bean
+				class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/plain;charset=UTF-8" />
 			</bean>
 			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
 				<property name="supportedMediaTypes">
@@ -32,16 +32,18 @@
 					</list>
 				</property>
 			</bean>
-		</mvc:message-converters>		
+		</mvc:message-converters>
 	</mvc:annotation-driven>
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/views/" />
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	
-		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="scott" />
@@ -53,7 +55,8 @@
 	</bean>
 	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:/kr/co/bturn/config/mybatis/mybatis-config.xml" />
+		<property name="configLocation"
+			value="classpath:/kr/co/bturn/config/mybatis/mybatis-config.xml" />
 	</bean>
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
@@ -69,7 +72,7 @@
 		</tx:attributes>
 	</tx:advice>
 
-	<!-- service -->
+	<!-- memberService 2015.10.08 이원희 -->
 	<bean id="memberService" class="kr.co.bturn.member.service.MemberServiceImpl">
 		<property name="memberDAO">
 			<bean id="memberDAO" class="kr.co.bturn.member.dao.MemberDAOImpl">
@@ -79,45 +82,56 @@
 			</bean>
 		</property>
 	</bean>
-
+	
+	<!-- productService 2015.10.08 이원희 -->
 	<bean id="productService" class="kr.co.bturn.product.service.ProductServiceImpl">
-		<property name="productDAO">
-			<bean id="productDAO" class="kr.co.bturn.product.dao.ProductDAOImpl">
-				<constructor-arg>
-					<ref bean="sqlSessionTemplate" />
-				</constructor-arg>
-			</bean>
-		</property>
+		<property name="productDAO" ref="productDAO" />
+	</bean>
+	<bean id="productDAO" class="kr.co.bturn.product.dao.ProductDAOImpl">
+		<constructor-arg>
+			<ref bean="sqlSessionTemplate" />
+		</constructor-arg>
 	</bean>
 
+	<!-- householdService 2015.10.08 이원희 -->
 	<bean id="householdService" class="kr.co.bturn.household.service.HouseholdServiceImpl">
-		<property name="householdDAO">
-			<bean id="householdDAO" class="kr.co.bturn.household.dao.HouseholdDAOImpl">
-				<constructor-arg>
-					<ref bean="sqlSessionTemplate" />
-				</constructor-arg>
-			</bean>
-		</property>
+		<property name="householdDAO" ref="householdDAO" />
+	</bean>
+	<bean id="householdDAO" class="kr.co.bturn.household.dao.HouseholdDAOImpl">
+		<constructor-arg>
+			<ref bean="sqlSessionTemplate" />
+		</constructor-arg>
 	</bean>
 
+	<!-- orderService 2015.10.08 이원희 -->
 	<bean id="orderService" class="kr.co.bturn.order.service.OrderServiceImpl">
-		<property name="orderDAO">
-			<bean id="orderDAO" class="kr.co.bturn.order.dao.OrderDAOImpl">
-				<constructor-arg>
-					<ref bean="sqlSessionTemplate" />
-				</constructor-arg>
-			</bean>
-		</property>
+		<property name="orderDAO" ref="orderDAO" />
+	</bean>
+	<bean id="orderDAO" class="kr.co.bturn.order.dao.OrderDAOImpl">
+		<constructor-arg>
+			<ref bean="sqlSessionTemplate" />
+		</constructor-arg>
 	</bean>
 
+	<!-- cartService 2015.10.08 이원희 -->
 	<bean id="cartService" class="kr.co.bturn.cart.service.CartServiceImpl">
-		<property name="cartDAO">
-			<bean id="cartDAO" class="kr.co.bturn.cart.dao.CartDAOImpl">
-				<constructor-arg>
-					<ref bean="sqlSessionTemplate" />
-				</constructor-arg>
-			</bean>
-		</property>
+		<property name="cartDAO" ref="cartDAO" />
 	</bean>
-		
+	<bean id="cartDAO" class="kr.co.bturn.cart.dao.CartDAOImpl">
+		<constructor-arg>
+			<ref bean="sqlSessionTemplate" />
+		</constructor-arg>
+	</bean>
+
+	<!-- payService 2015.10.08 이원희 -->
+	<bean id="payService" class="kr.co.bturn.pay.service.PayServiceImpl">
+		<property name="payDAO" ref="payDAO" />
+	</bean>
+
+	<bean id="payDAO" class="kr.co.bturn.pay.dao.PayDAOImpl">
+		<constructor-arg>
+			<ref bean="sqlSessionTemplate" />
+		</constructor-arg>
+	</bean>
+
 </beans>
