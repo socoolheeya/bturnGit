@@ -41,10 +41,10 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public ProductDTO selectProduct(long index) throws DataAccessException {
+	public ProductDTO selectProduct(long productNo) throws DataAccessException {
 		ProductDTO dto = null;
 		try {
-			dto = sqlMap.selectOne("selectProduct", index);
+			dto = sqlMap.selectOne("selectProduct", productNo);
 			sqlMap.commit();
 		} catch(Exception e) {
 			sqlMap.rollback();
@@ -68,15 +68,18 @@ public class ProductDAOImpl implements ProductDAO {
 
 
 	@Override
-	public int updateProduct(long index) throws DataAccessException {
-		return sqlMap.update("updateProduct", index);
+	public int updateProduct(long productNo) throws DataAccessException {
+		return sqlMap.update("updateProduct", productNo);
 	}
 
 	@Override
-	public int deleteProduct(long index) throws DataAccessException {
-		return sqlMap.delete("deleteProduct", index);
+	public int deleteProduct(long productNo) throws DataAccessException {
+		return sqlMap.delete("deleteProduct", productNo);
 	}
 
-
+	@Override
+	public int updateRecommandCount(long productNo) throws DataAccessException {
+		return sqlMap.update("updateRecommend", productNo);
+	}
 
 }

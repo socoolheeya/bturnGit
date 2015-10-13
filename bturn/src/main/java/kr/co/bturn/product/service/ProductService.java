@@ -2,6 +2,9 @@ package kr.co.bturn.product.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import kr.co.bturn.product.model.ProductDTO;
 
 /**
@@ -30,13 +33,13 @@ public interface ProductService {
 	
 	/**
 	 * 선택 상품 상세 보기
-	 * @param index
+	 * @param productNo
 	 * @return
 	 * @throws Exception
 	 * @author LeeWonHee
 	 * @since 2015.09.22
 	 */
-	public ProductDTO selectProduct(long index) throws Exception;
+	public ProductDTO selectProduct(long productNo) throws Exception;
 	
 	/**
 	 * 메인화면 전체 상품 리스트 가져오기
@@ -49,22 +52,31 @@ public interface ProductService {
 	
 	/**
 	 * 상품 변경
-	 * @param index
+	 * @param productNo
 	 * @return
 	 * @throws Exception
 	 * @author LeeWonHee
 	 * @since 2015.09.22
 	 */
-	public int updateProduct(long index) throws Exception;
+	public int updateProduct(long productNo) throws Exception;
 	
 	/**
 	 * 상품 삭제
-	 * @param index
+	 * @param productNo
 	 * @return
 	 * @throws Exception
 	 * @author LeeWonHee
 	 * @since 2015.09.22
 	 */
-	public int deleteProduct(long index) throws Exception;
+	public int deleteProduct(long productNo) throws Exception;
+	
+	/**
+	 * 상품 추천 서비스
+	 * @param productNo
+	 * @throws Exception
+	 * @author LeeWonHee
+	 * @since 2015.10.11
+	 */
+	public void updateRecommendCount(long productNo, HttpSession session, HttpServletRequest request) throws Exception;
 
 }

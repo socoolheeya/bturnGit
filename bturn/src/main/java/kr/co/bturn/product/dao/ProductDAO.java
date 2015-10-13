@@ -35,13 +35,13 @@ public interface ProductDAO {
 	
 	/**
 	 * 상품 선택
-	 * @param index
+	 * @param productNo
 	 * @return
 	 * @throws DataAccessException
 	 * @author LeeWonHee
 	 * @since 2015.09.22
 	 */
-	public ProductDTO selectProduct(long index) throws DataAccessException;
+	public ProductDTO selectProduct(long productNo) throws DataAccessException;
 	
 	/**
 	 * 상품 리스트
@@ -55,22 +55,32 @@ public interface ProductDAO {
 	
 	/**
 	 * 상품 정보 수정
-	 * @param index
+	 * @param productNo
 	 * @return
 	 * @throws DataAccessException
 	 * @author LeeWonHee
 	 * @since 2015.09.22
 	 */
-	public int updateProduct(long index) throws DataAccessException;
+	public int updateProduct(long productNo) throws DataAccessException;
 	
 	/**
 	 * 상품 삭제
-	 * @param index
+	 * @param productNo
 	 * @return
 	 * @throws DataAccessException
 	 * @author LeeWonHee
 	 * @since 2015.09.22
 	 */
-	public int deleteProduct(long index) throws DataAccessException;
+	public int deleteProduct(long productNo) throws DataAccessException;
+	
+	/**
+	 * 상품 추천 
+	 * @param productNo
+	 * @return
+	 * @throws DataAccessException
+	 * @author LeeWonHee
+	 * @since 2015.10.11
+	 */
+	public int updateRecommandCount(long productNo) throws DataAccessException;
 
 }

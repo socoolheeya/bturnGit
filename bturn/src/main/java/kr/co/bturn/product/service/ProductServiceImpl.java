@@ -3,11 +3,14 @@ package kr.co.bturn.product.service;
 import java.util.List;
 
 import javax.annotation.Resource;
-
-import org.apache.log4j.Logger;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import kr.co.bturn.product.dao.ProductDAO;
 import kr.co.bturn.product.model.ProductDTO;
+
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 
 /**
  * 
@@ -16,8 +19,7 @@ import kr.co.bturn.product.model.ProductDTO;
  */
 public class ProductServiceImpl implements ProductService {
 	
-	Logger log = Logger.getLogger(this.getClass());
-	
+	Log log = LogFactory.getLog(this.getClass());
 	@Resource(name="productDAO")
 	private ProductDAO productDAO;
 
@@ -54,6 +56,19 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int deleteProduct(long index) throws Exception {
 		return productDAO.deleteProduct(index);
+	}
+
+	@Override
+	public void updateRecommendCount(long productNo, HttpSession session, HttpServletRequest request) throws Exception {
+		
+		long memberNo = (Long)session.getAttribute("memberNo");
+		String memberId = (String)session.getAttribute("id");
+		if(memberNo == -1) {
+			request.getRemoteAddr();
+		} else {
+			productDAO.updateRecommandCount(productNo);
+		}
+		
 	}
 
 
